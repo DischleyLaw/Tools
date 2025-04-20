@@ -23,6 +23,36 @@
       <label>Court Date:</label><br>
       <input type="date" name="court_date" value="{{ lead.court_date }}" class="form-control"><br>
 
+      <label>Court Time:</label><br>
+      <input type="time" name="court_time" value="{{ lead.court_time }}" class="form-control"><br>
+
+      <label>Court Name:</label><br>
+      <input type="text" name="court" value="{{ lead.court }}" class="form-control"><br>
+
+      <label>Homework:</label><br>
+      <textarea name="homework" class="form-control" rows="2">{{ lead.homework }}</textarea><br>
+
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" name="send_retainer" id="send_retainer" {% if lead.send_retainer %}checked{% endif %}>
+        <label class="form-check-label" for="send_retainer">Send Retainer</label>
+      </div>
+
+      <label>Retainer Amount:</label>
+      <input type="text" name="retainer_amount" value="{{ lead.retainer_amount or '' }}" class="form-control mb-3"><br>
+
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" name="lvm" id="lvm" {% if lead.lvm %}checked{% endif %}>
+        <label class="form-check-label" for="lvm">LVM</label>
+      </div>
+
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="checkbox" name="not_pc" id="not_pc" {% if lead.not_pc %}checked{% endif %}>
+        <label class="form-check-label" for="not_pc">Not a PC</label>
+      </div>
+
+      <label>Quote:</label><br>
+      <input type="text" name="quote" value="{{ lead.quote or '' }}" class="form-control"><br>
+
       <label>Notes:</label><br>
       <textarea name="notes" class="form-control" rows="4">{{ lead.notes }}</textarea><br>
 

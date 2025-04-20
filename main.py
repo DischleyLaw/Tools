@@ -119,7 +119,12 @@ def intake():
             court_time=data.get("court_time"),
             court=data.get("court"),
             notes=data.get("notes"),
-            homework=data.get("homework")
+            homework=data.get("homework"),
+            send_retainer=False,
+            lvm=False,
+            not_pc=False,
+            quote=None,
+            retainer_amount=None
         )
         db.session.add(new_lead)
         db.session.commit()
