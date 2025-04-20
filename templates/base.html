@@ -7,7 +7,10 @@
 <body>
   <nav class="navbar navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">Dischley Law Tools</span>
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ url_for('static', filename='img/DL_Logo.png') }}" alt="Dischley Law" height="40" class="me-2">
+        <span>Dischley Law Tools</span>
+      </a>
       {% if session.get('user') %}
         <div>
           <a href="/" class="btn btn-outline-light btn-sm me-2">Dashboard</a>
