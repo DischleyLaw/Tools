@@ -1,7 +1,9 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
+{% block title %}Case Result Success{% endblock %}
 {% block content %}
-<div class="success-message">
+<div class="card">
+  <div class="card-body">
   <h2>Case Result Submitted Successfully</h2>
   <p>Thank you. The case result has been recorded and sent to the appropriate parties.</p>
   <ul>
@@ -10,5 +12,6 @@
     <li><strong>Review Request</strong>: If selected, the client was prompted for a review.</li>
   </ul>
   <p><a href="{{ url_for('case_result') }}">Submit another case result</a> or <a href="{{ url_for('dashboard') }}">Return to the dashboard</a>.</p>
+  </div>
 </div>
 {% endblock %}

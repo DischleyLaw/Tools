@@ -1,32 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Case Result Submission</title>
-    <script>
-        function toggleContinuationDate() {
-            const wasContinued = document.getElementById('was_continued').value;
-            document.getElementById('continuation_date_container').style.display = wasContinued === 'Yes' ? 'block' : 'none';
-        }
-        function toggleOtherDisposition() {
-            const val = document.getElementById('disposition').value;
-            document.getElementById('other_disposition_container').style.display = val === 'Other' ? 'block' : 'none';
-        }
-        function toggleCourtInput() {
-            const court = document.getElementById('court_select').value;
-            document.getElementById('custom_court_container').style.display = court === 'Other' ? 'block' : 'none';
-        }
-        function toggleAmendedChargeInput() {
-            const val = document.getElementById('amended_charge_select').value;
-            document.getElementById('custom_amended_charge_container').style.display = val === 'Other' ? 'block' : 'none';
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('date_disposition').value = today;
-        });
-    </script>
-</head>
-<body>
-    <h2>Submit Case Result</h2>
+{% extends "base.html" %}
+{% block title %}Submit Case Result{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h2 class="mb-4">Submit Case Result</h2>
     <form method="POST">
       <label>Court:</label><br>
       <select name="court" id="court_select" onchange="toggleCourtInput()">
@@ -133,7 +110,12 @@
 
       <label><input type="checkbox" name="send_review_links" value="true"> Send Review Links</label><br><br>
 
-      <input type="submit" value="Submit">
+      <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-danger">Cancel</a>
+      </div>
     </form>
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}

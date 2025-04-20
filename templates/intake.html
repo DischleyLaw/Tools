@@ -1,18 +1,23 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
+{% block title %}Client Intake{% endblock %}
 {% block content %}
-<h2>Client Intake Form</h2>
-{% if submitted %}
-  <p style="color: green;"><strong>Form submitted successfully!</strong></p>
-{% endif %}
-<form method="POST">
-  <label>Full Name:</label><br><input type="text" name="name" required><br><br>
-  <label>Phone Number:</label><br><input type="tel" name="phone" required><br><br>
-  <label>Email:</label><br><input type="email" name="email"><br><br>
-  <label>Charge or Legal Issue:</label><br><input type="text" name="charge"><br><br>
-  <label>Court Date:</label><br><input type="date" name="court_date"><br><br>
-  <label>Court Time:</label><br><input type="time" name="court_time"><br><br>
-  <label>Court Name:</label><br><input type="text" name="court"><br><br>
-  <label>Notes:</label><br><textarea name="notes" rows="4"></textarea><br><br>
-  <button type="submit">Submit</button>
-</form>
+<div class="card">
+  <div class="card-body">
+    <h2 class="mb-4">Client Intake Form</h2>
+    {% if submitted %}
+      <p style="color: green;"><strong>Form submitted successfully!</strong></p>
+    {% endif %}
+    <form method="POST">
+      <label>Full Name:</label><br><input type="text" name="name" required><br><br>
+      <label>Phone Number:</label><br><input type="tel" name="phone" required><br><br>
+      <label>Email:</label><br><input type="email" name="email"><br><br>
+      <label>Charge or Legal Issue:</label><br><input type="text" name="charge"><br><br>
+      <label>Court Date:</label><br><input type="date" name="court_date"><br><br>
+      <label>Court Time:</label><br><input type="time" name="court_time"><br><br>
+      <label>Court Name:</label><br><input type="text" name="court"><br><br>
+      <label>Notes:</label><br><textarea name="notes" rows="4"></textarea><br><br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

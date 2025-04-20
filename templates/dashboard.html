@@ -1,6 +1,9 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
 {% block content %}
-<h2>Dashboard</h2>
+<div class="card">
+  <div class="card-body">
+    <h2 class="mb-4">Dashboard</h2>
 <ul>
   <li><a href="/intake">Client Intake</a></li>
   <li><a href="/case_result">Submit Case Result</a></li>
@@ -42,4 +45,6 @@
     });
   }
 </script>
+  </div>
+</div>
 {% endblock %}
