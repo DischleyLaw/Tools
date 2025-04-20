@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dischley Tools</title>
+</head>
+<body>
+  <header>
+    <h1>Dischley Law Firm Tools</h1>
+  </header>
+  <nav>
+    {% if session.get('user') %}
+      <a href="/">Dashboard</a> |
+      <a href="/intake">Client Intake</a> |
+      <a href="/logout">Logout</a>
+    {% else %}
+      <a href="/login">Login</a>
+    {% endif %}
+  </nav>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

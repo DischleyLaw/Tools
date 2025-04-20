@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="success-message">
+  <h2>Case Result Submitted Successfully</h2>
+  <p>Thank you. The case result has been recorded and sent to the appropriate parties.</p>
+  <ul>
+    <li><strong>Client Email Sent</strong>: A confirmation email has been sent if applicable.</li>
+    <li><strong>Staff Notified</strong>: Internal team has received a detailed summary.</li>
+    <li><strong>Review Request</strong>: If selected, the client was prompted for a review.</li>
+  </ul>
+  <p><a href="{{ url_for('case_result') }}">Submit another case result</a> or <a href="{{ url_for('dashboard') }}">Return to the dashboard</a>.</p>
+</div>
+{% endblock %}

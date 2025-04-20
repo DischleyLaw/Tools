@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Lead Details</h2>
+<p><strong>Name:</strong> {{ lead.name }}</p>
+<p><strong>Phone:</strong> {{ lead.phone }}</p>
+<p><strong>Email:</strong> {{ lead.email }}</p>
+<p><strong>Charge:</strong> {{ lead.charge }}</p>
+<p><strong>Court Date:</strong> {{ lead.court_date }}</p>
+<p><strong>Court Time:</strong> {{ lead.court_time }}</p>
+<p><strong>Court:</strong> {{ lead.court }}</p>
+<p><strong>Notes:</strong> {{ lead.notes }}</p>
+<hr>
+
+<form method="POST" action="{{ url_for('update_lead', lead_id=lead.id) }}">
+  <label><input type="checkbox" name="send_retainer" {% if lead.send_retainer %}checked{% endif %}> Send Retainer</label><br>
+  <div id="retainer_amount_box" style="margin-top: 5px; {% if not lead.send_retainer %}display:none;{% endif %}">
+    <label>Retainer Amount:</label>
+    <input type="text" name="retainer_amount" value="{{ lead.retainer_amount or '' }}">
+  </div>
+  <br>
+  <label><input type="checkbox" name="lvm" {% if lead.lvm %}checked{% endif %}> Left Voicemail (LVM)</label><br>
+  <label><input type="checkbox" name="not_pc" {% if lead.not_pc %}checked{% endif %}> Not a PC</label><br>
+  <label>Quote:</label>
+  <input type="text" name="quote" value="{{ lead.quote or '' }}"><br><br>
+  <button type="submit">Submit Update</button>
+</form>
+
+<script>
+  const checkbox = document.querySelector("input[name='send_retainer']");
+  const box = document.getElementById("retainer_amount_box");
+  checkbox.addEventListener('change', () => {
+    box.style.display = checkbox.checked ? 'block' : 'none';
+  });
+</script>
+{% endblock %}

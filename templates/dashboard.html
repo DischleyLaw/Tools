@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<ul>
+  <li><a href="/intake">Client Intake</a></li>
+  <li><a href="/case_result">Submit Case Result</a></li>
+</ul>
+<h3>Search</h3>
+<input type="text" id="searchInput" onkeyup="filterDashboard()" placeholder="Search by name or keyword"><br><br>
+
+<h3>Leads</h3>
+<ul id="leadList">
+  {% for lead in leads %}
+    <li>
+      <strong>{{ lead.name }}</strong><br>
+      {{ lead.charge }} ({{ lead.county }})<br>
+      <a href="/edit/lead/{{ lead.id }}">Edit</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<h3>Case Results</h3>
+<ul id="caseResultList">
+  {% for result in case_results %}
+    <li>
+      <strong>{{ result.defendant_name }}</strong><br>
+      {{ result.offense }} – {{ result.disposition }}<br>
+      <a href="/edit/case_result/{{ result.id }}">Edit</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<script>
+  function filterDashboard() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    ["leadList", "caseResultList"].forEach(section => {
+      const items = document.getElementById(section).getElementsByTagName("li");
+      for (let i = 0; i < items.length; i++) {
+        const text = items[i].innerText.toLowerCase();
+        items[i].style.display = text.includes(input) ? "" : "none";
+      }
+    });
+  }
+</script>
+{% endblock %}
