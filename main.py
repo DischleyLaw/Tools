@@ -1,5 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mail import Mail, Message
+from functools import wraps
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "user" not in session:
+            return redirect(url_for("login"))
+        return f(*args, **kwargs)
+    return decorated_function
 import requests
 import os
 from dotenv import load_dotenv
@@ -68,12 +77,16 @@ class CaseResult(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 @app.route("/")
+@login_required
 def dashboard():
-    if "user" not in session:
-        return redirect(url_for("login"))
-    leads = Lead.query.order_by(Lead.created_at.desc()).all()
     case_results = CaseResult.query.order_by(CaseResult.created_at.desc()).all()
-    return render_template("dashboard.html", leads=leads, case_results=case_results)
+    return render_template("dashboard.html", case_results=case_results)
+
+@app.route("/leads")
+@login_required
+def view_leads():
+    leads = Lead.query.order_by(Lead.created_at.desc()).all()
+    return render_template("leads.html", leads=leads)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -92,9 +105,8 @@ def logout():
     return redirect(url_for("login"))
 
 @app.route("/intake", methods=["GET", "POST"])
+@login_required
 def intake():
-    if "user" not in session:
-        return redirect(url_for("login"))
     if request.method == "POST":
         data = request.form
 
@@ -161,16 +173,14 @@ def intake_success():
     return render_template("success.html")
 
 @app.route("/lead/<int:lead_id>")
+@login_required
 def view_lead(lead_id):
-    if "user" not in session:
-        return redirect(url_for("login"))
     lead = Lead.query.get_or_404(lead_id)
     return render_template("view_lead.html", lead=lead)
 
 @app.route("/lead/<int:lead_id>/update", methods=["POST"])
+@login_required
 def update_lead(lead_id):
-    if "user" not in session:
-        return redirect(url_for("login"))
     lead = Lead.query.get_or_404(lead_id)
 
     lead.name = request.form.get("name", lead.name)
@@ -225,9 +235,8 @@ View Lead: {url_for("view_lead", lead_id=lead.id, _external=True)}
     return redirect(url_for("update_success"))
 
 @app.route("/lead/<int:lead_id>/edit", methods=["GET", "POST"])
+@login_required
 def edit_lead(lead_id):
-    if "user" not in session:
-        return redirect(url_for("login"))
     lead = Lead.query.get_or_404(lead_id)
     if request.method == "POST":
         lead.name = request.form.get("name", lead.name)
@@ -241,9 +250,8 @@ def edit_lead(lead_id):
     return render_template("edit_lead.html", lead=lead)
 
 @app.route("/case_result/<int:result_id>/edit", methods=["GET", "POST"])
+@login_required
 def edit_case_result(result_id):
-    if "user" not in session:
-        return redirect(url_for("login"))
     result = CaseResult.query.get_or_404(result_id)
     if request.method == "POST":
         result.defendant_name = request.form.get("defendant_name", result.defendant_name)
@@ -270,9 +278,8 @@ def update_success():
     return render_template("update_success.html")
 
 @app.route("/case_result", methods=["GET", "POST"])
+@login_required
 def case_result():
-    if "user" not in session:
-        return redirect(url_for("login"))
     if request.method == "POST":
         data = request.form
         
