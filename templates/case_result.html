@@ -102,6 +102,8 @@
         <option value="Dismissed with Costs">Dismissed with Costs</option>
         <option value="Taken Under Advisement for Dismissal">Taken Under Advisement for Dismissal</option>
         <option value="Deferred Disposition">Deferred Disposition</option>
+        <option value="Continued">Continued</option>
+        <option value="Other">Other</option>
       </select><br><br>
       <div id="other_disposition_container" style="display: none;">
         <label>Specify Other Disposition:</label><br>
@@ -179,4 +181,22 @@
     </form>
   </div>
 </div>
+  <script>
+    function toggleContinuationDate() {
+      const disposition = document.getElementById("disposition").value;
+      const wasContinued = document.getElementById("was_continued").value;
+      const container = document.getElementById("continuation_date_container");
+
+      if (disposition === "Continued" || wasContinued === "Yes") {
+        container.style.display = "block";
+      } else {
+        container.style.display = "none";
+      }
+    }
+
+    // Ensure the toggle runs on page load if "Continued" is pre-selected
+    window.onload = function () {
+      toggleContinuationDate();
+    };
+  </script>
 {% endblock %}
