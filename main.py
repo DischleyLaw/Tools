@@ -328,26 +328,6 @@ Original Charge: {data.get("offense")}
         elif disposition == "Deferred Disposition":
             msg_body += f"Deferred Disposition of charge: {amended_charge or data.get('offense')}\n"
 
-        msg_body += "\n\n---\n\nSTAFF REVIEW\n\n"
-        msg_body += f"""
-Dear {data.get("defendant_name")},
-
-Thank you for allowing Dischley Law, PLLC to represent you today on your pending charges.
-
-Your case concluded as follows: On the charge of {data.get("offense")}, you were found {data.get("disposition")}, and the judge imposed the following sentence: {data.get("sentence")}, a fine of {data.get("fine_costs")}, payment of court costs, and any additional conditions as noted below.
-
-License Suspension: {data.get("license_suspension")}
-ASAP Ordered: {data.get("asap_ordered")}
-Probation Type: {data.get("probation_type")}
-Was Continued: {data.get("was_continued")}
-Continuation Date: {data.get("continuation_date")}
-Date of Disposition: {data.get("date_disposition")}
-
-Additional Notes:
-{data.get("notes")}
-
-This concludes our representation of you on these matters.
-"""
 
         if data.get("send_review_links"):
             msg_body += f"""

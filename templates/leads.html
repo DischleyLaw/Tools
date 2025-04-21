@@ -14,6 +14,11 @@
           <th>Charge</th>
           <th>County</th>
           <th>Court Date</th>
+          <th>Homework</th>
+          <th>Send Retainer</th>
+          <th>LVM</th>
+          <th>Not a PC</th>
+          <th>Quote</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -26,7 +31,12 @@
           <td>{{ lead.charge }}</td>
           <td>{{ lead.county }}</td>
           <td>{{ lead.court_date }}</td>
-          <td><a href="/edit/lead/{{ lead.id }}" class="btn btn-sm btn-primary">Edit</a></td>
+          <td>{{ lead.homework }}</td>
+          <td>{{ '✔' if lead.send_retainer else '✘' }}</td>
+          <td>{{ '✔' if lead.lvm else '✘' }}</td>
+          <td>{{ '✔' if lead.not_pc else '✘' }}</td>
+          <td>{{ lead.quote }}</td>
+          <td><a href="{{ url_for('view_lead', lead_id=lead.id) }}" class="btn btn-sm btn-primary">Edit</a></td>
         </tr>
         {% endfor %}
       </tbody>
@@ -47,11 +57,11 @@
   });
 
   function downloadCSV() {
-    let csv = "Name,Phone,Email,Charge,County,Court Date\\n";
+    let csv = "Name,Phone,Email,Charge,County,Court Date,Homework,Send Retainer,LVM,Not a PC,Quote\\n";
     const rows = document.querySelectorAll("#leadsTable tbody tr");
     rows.forEach(row => {
       const cols = row.querySelectorAll("td");
-      const rowData = Array.from(cols).slice(0, 6).map(td => td.innerText).join(",");
+      const rowData = Array.from(cols).slice(0, 11).map(td => td.innerText).join(",");
       csv += rowData + "\\n";
     });
 
